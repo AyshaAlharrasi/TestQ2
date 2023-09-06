@@ -1,0 +1,41 @@
+<br>
+<br>
+<h1 style="color:blue; text-align:center;"> Task chacking </h1>
+<br>
+<br>
+
+  <br>
+  
+
+<div class="card mx-auto shadow-lg p-3 mb-5 bg-body rounded" style="width: 60%; height: auto;">
+  <div class="row m-3">
+    <div class="col-6">
+      <input style="background-color:rgba(0, 0, 255, 0.175);"  type="text" class="form-control" placeholder="Enter Any Task" [(ngModel)]="task" (input)="onChange()" />
+    </div>
+    <div class="col-1">
+      <button style="background-color:rgba(76, 76, 108, 0.922);" class="btn btn-primary" (click)="addTask()" [disabled]="!isValid()" >Add</button>
+    </div>
+    
+  </div>
+  <div  *ngIf="errorMessage" style=" color:rgba(255, 0, 0, 0.944);">{{ errorMessage }}</div>
+  
+  <div class="row m-3" *ngFor="let item of list; let i = index">
+    <div class="col-1">
+      <button style="background-color:rgba(255, 0, 0, 0.549);" class="btn btn-danger btn-sm pull-right" (click)="deleteTask(i)">Delete</button>
+    </div>
+    <div class="col-5">
+      <div class="form-check my-1">
+        <input class="form-check-input" (change)="changeStatus(i, item.IsComplete)" type="checkbox" [checked]="item.IsComplete"
+          id="{{ 'checkbox-' + i }}">
+        <label class="form-check-label" for="{{ 'checkbox-' + i }}">
+          <ng-container *ngIf="item.IsComplete; else notComplete">{{ item.TaskName }}</ng-container>
+          <ng-template #notComplete>{{ item.TaskName }}</ng-template>
+        </label>
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-2">
+    <button class="btn btn-danger" (click)="deleteAllTasks()">Delete All</button>
+  </div>
+</div>
